@@ -13,14 +13,14 @@
   <iframe style="position:fixed; width:100%; height:100%; border:0" src="" id="api-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allow="autoplay; fullscreen; vr" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
   <div class="buttons">
+    <button id="keyH">Outcrop:</button>
+    <button id="keyH1">Land (B&W)</button>
     <button id="keyA">Stratum</button>
     <button id="keyB">Anticline</button>
     <button id="keyC"> Interpretation </button>
+    <button id="keyD"> Map: </button>
+    <button id="keyD1">Sat (Geo)</button>
     <button id="keyE"> Section </button>
-    <button id="keyD"> Map </button>
-    <button id="keyD1"> Sat </button>
-    <button id="keyD2"> Geo </button>
-    <button id="keyD3"> B&W </button>
     <button id="keyF">Scalebar</button>
     <button id="keyG">Background Info</button>
   </div>
@@ -30,14 +30,14 @@
     var model = 'c90cc8093370416aa67eb36f8a9b300b',
 
     // Buttons
+    buttonH = document.getElementById( 'keyH' ),
+    buttonH1 = document.getElementById( 'keyH1' ),
     buttonA = document.getElementById( 'keyA' ),
     buttonB = document.getElementById( 'keyB' ),
     buttonC = document.getElementById( 'keyC' ),
-    buttonE = document.getElementById( 'keyE' ),
     buttonD = document.getElementById( 'keyD' ),
     buttonD1 = document.getElementById( 'keyD1' ),
-    buttonD2 = document.getElementById( 'keyD2' ),
-    buttonD3 = document.getElementById( 'keyD3' ),
+    buttonE = document.getElementById( 'keyE' ),
     buttonF = document.getElementById( 'keyF' ),
     buttonG = document.getElementById( 'keyG' ),
 
@@ -85,6 +85,28 @@
             api.hide(node_Horizon2b);
             api.hide(node_Basemap);
             api.hide(node_Section);
+
+
+            if ( node_Outcrop ) {
+              // Add button event
+              buttonH.addEventListener( 'click', function() {
+                switch(buttonH.innerHTML) {
+                  case "Outcrop:":
+                    buttonH.innerHTML = " Outcrop: ";
+                    buttonH.style.backgroundColor = "#888888";
+                    buttonH1.style.backgroundColor = "#888888";
+                    api.hide(node_Outcrop);
+                    break;
+                  case " Outcrop: ":
+                    buttonH.innerHTML = "Outcrop:";
+                    buttonH.style.backgroundColor = "#1caad9";
+                    buttonH1.style.backgroundColor = "#1caad9";
+                    api.show(node_Outcrop);
+                    break;
+                }
+              });
+            }
+
 
             if ( node_Stratum ) {
               // Add button event
@@ -151,14 +173,16 @@
               // Add button event
               buttonD.addEventListener( 'click', function() {
                 switch(buttonD.innerHTML) {
-                  case "Map":
-                    buttonD.innerHTML = " Map ";
+                  case "Map:":
+                    buttonD.innerHTML = " Map: ";
                     buttonD.style.backgroundColor = "#888888";
+                    buttonD1.style.backgroundColor = "#888888";
                     api.hide(node_Basemap);
                     break;
-                  case " Map ":
-                    buttonD.innerHTML = "Map";
+                  case " Map: ":
+                    buttonD.innerHTML = "Map:";
                     buttonD.style.backgroundColor = "#1caad9";
+                    buttonD1.style.backgroundColor = "#1caad9";
                     api.show(node_Basemap);
                     break;
                 }
@@ -209,30 +233,39 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Topo = textures[prop].uid; }
+              if (textures[prop].name === "VianaDeJadraque_OutcropLand.jpg") { var texture_Outcrop = textures[prop].uid; }
+              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Basemap = textures[prop].uid; }
             }
 
-            if ( texture_Topo ) {
+            if ( texture_Outcrop ) {
+              // Add button event
+              buttonH1.addEventListener( 'click', function() {
+                switch(buttonH1.innerHTML) {
+                  case "Land (B&W)":
+                    buttonH1.innerHTML = "B&W (Land)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    break;
+                  case "B&W (Land)":
+                    buttonH1.innerHTML = "Land (B&W)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    break;
+                }
+              });
+            }
+
+            if ( texture_Basemap ) {
               // Add button event
               buttonD1.addEventListener( 'click', function() {
-                buttonD1.style.backgroundColor = "#1caad9";
-                buttonD2.style.backgroundColor = "#888888";
-                buttonD3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapSat.jpg', texture_Topo, function(err, texture_Topo) {});
-              });
-
-              buttonD2.addEventListener( 'click', function() {
-                buttonD1.style.backgroundColor = "#888888";
-                buttonD2.style.backgroundColor = "#1caad9";
-                buttonD3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGeo.jpg', texture_Topo, function(err, texture_Topo) {});
-              });
-
-              buttonD3.addEventListener( 'click', function() {
-                buttonD1.style.backgroundColor = "#888888";
-                buttonD2.style.backgroundColor = "#888888";
-                buttonD3.style.backgroundColor = "#1caad9";
-                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGrey.jpg', texture_Topo, function(err, texture_Topo) {});
+                switch(buttonD1.innerHTML) {
+                  case "Geo (Sat)":
+                    buttonD1.innerHTML = "Sat (Geo)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapSat.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    break;
+                  case "Sat (Geo)":
+                    buttonD1.innerHTML = "Geo (Sat)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGeo.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    break;
+                }
               });
             }
 
@@ -300,12 +333,12 @@
 
     button:hover {opacity: 1;}
     button:active {font-weight: bold;}
+    #keyH {background: #888888; width: 40%; display: inline;}
+    #keyH1 {background: #888888; width: 57%; display: inline;}
     #keyC {background: #888888;}
-    #keyE {background: #888888; margin-top: 10px;}
-    #keyD {background: #888888;}
-    #keyD1 {background: #1caad9; width: 31%; display: inline; font-size: x-small;}
-    #keyD2 {background: #888888; width: 32%; display: inline; font-size: x-small;}
-    #keyD3 {background: #888888; width: 31%; display: inline; font-size: x-small;}
+    #keyD {background: #888888; margin-top: 10px; width: 40%; display: inline;}
+    #keyD1 {background: #888888; margin-top: 10px; width: 57%; display: inline;}
+    #keyE {background: #888888;}
     #keyF {margin-top: 10px;}
 
   </style>
