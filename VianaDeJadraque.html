@@ -241,11 +241,11 @@
               // Add button event
               buttonH1.addEventListener( 'click', function() {
                 switch(buttonH1.innerHTML) {
-                  case "Land (B&W)":
+                  case "Land (B&amp;W)":
                     buttonH1.innerHTML = "B&W (Land)";
                     api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
                     break;
-                  case "B&W (Land)":
+                  case "B&amp;W (Land)":
                     buttonH1.innerHTML = "Land (B&W)";
                     api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
                     break;
@@ -333,8 +333,8 @@
 
     button:hover {opacity: 1;}
     button:active {font-weight: bold;}
-    #keyH {background: #888888; width: 40%; display: inline;}
-    #keyH1 {background: #888888; width: 57%; display: inline;}
+    #keyH {width: 40%; display: inline;}
+    #keyH1 {width: 57%; display: inline;}
     #keyC {background: #888888;}
     #keyD {background: #888888; margin-top: 10px; width: 40%; display: inline;}
     #keyD1 {background: #888888; margin-top: 10px; width: 57%; display: inline;}
