@@ -16,9 +16,13 @@
     <button id="keyA">Stratum</button>
     <button id="keyB">Anticline</button>
     <button id="keyC"> Interpretation </button>
-    <button id="keyD"> Map-Section </button>
-    <button id="keyE">Scalebar</button>
-    <button id="keyF">Background Info</button>
+    <button id="keyE"> Section </button>
+    <button id="keyD"> Map </button>
+    <button id="keyD1"> Sat </button>
+    <button id="keyD2"> Geo </button>
+    <button id="keyD3"> B&W </button>
+    <button id="keyF">Scalebar</button>
+    <button id="keyG">Background Info</button>
   </div>
 
   <!-- Your new script -->
@@ -29,9 +33,13 @@
     buttonA = document.getElementById( 'keyA' ),
     buttonB = document.getElementById( 'keyB' ),
     buttonC = document.getElementById( 'keyC' ),
-    buttonD = document.getElementById( 'keyD' ),
     buttonE = document.getElementById( 'keyE' ),
+    buttonD = document.getElementById( 'keyD' ),
+    buttonD1 = document.getElementById( 'keyD1' ),
+    buttonD2 = document.getElementById( 'keyD2' ),
+    buttonD3 = document.getElementById( 'keyD3' ),
     buttonF = document.getElementById( 'keyF' ),
+    buttonG = document.getElementById( 'keyG' ),
 
     // Variables
     version = '1.8.2',
@@ -139,20 +147,36 @@
               });
             }
 
-            if ( node_Basemap && node_Section ) {
+            if ( node_Basemap ) {
               // Add button event
               buttonD.addEventListener( 'click', function() {
                 switch(buttonD.innerHTML) {
-                  case "Map-Section":
-                    buttonD.innerHTML = " Map-Section ";
+                  case "Map":
+                    buttonD.innerHTML = " Map ";
                     buttonD.style.backgroundColor = "#888888";
                     api.hide(node_Basemap);
-                    api.hide(node_Section);
                     break;
-                  case " Map-Section ":
-                    buttonD.innerHTML = "Map-Section";
+                  case " Map ":
+                    buttonD.innerHTML = "Map";
                     buttonD.style.backgroundColor = "#1caad9";
                     api.show(node_Basemap);
+                    break;
+                }
+              });
+            }
+
+            if ( node_Section ) {
+              // Add button event
+              buttonE.addEventListener( 'click', function() {
+                switch(buttonE.innerHTML) {
+                  case "Section":
+                    buttonE.innerHTML = " Section ";
+                    buttonE.style.backgroundColor = "#888888";
+                    api.hide(node_Section);
+                    break;
+                  case " Section ":
+                    buttonE.innerHTML = "Section";
+                    buttonE.style.backgroundColor = "#1caad9";
                     api.show(node_Section);
                     break;
                 }
@@ -161,17 +185,17 @@
 
             if ( node_Scalebar && node_ScalebarT ) {
               // Add button event
-              buttonE.addEventListener( 'click', function() {
-                switch(buttonE.innerHTML) {
+              buttonF.addEventListener( 'click', function() {
+                switch(buttonF.innerHTML) {
                   case "Scalebar":
-                    buttonE.innerHTML = " Scalebar ";
-                    buttonE.style.backgroundColor = "#888888";
+                    buttonF.innerHTML = " Scalebar ";
+                    buttonF.style.backgroundColor = "#888888";
                     api.hide(node_Scalebar);
                     api.hide(node_ScalebarT);
                     break;
                   case " Scalebar ":
-                    buttonE.innerHTML = "Scalebar";
-                    buttonE.style.backgroundColor = "#1caad9";
+                    buttonF.innerHTML = "Scalebar";
+                    buttonF.style.backgroundColor = "#1caad9";
                     api.show(node_Scalebar);
                     api.show(node_ScalebarT);
                     break;
@@ -185,37 +209,37 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "RibaSantiuste_GeoMap.jpg") { var texture_Topo = textures[prop].uid; }
+              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Topo = textures[prop].uid; }
             }
 
             if ( texture_Topo ) {
               // Add button event
-              buttonC1.addEventListener( 'click', function() {
-                buttonC1.style.backgroundColor = "#1caad9";
-                buttonC2.style.backgroundColor = "#888888";
-                buttonC3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Riba_de_Santiuste/GeoMap_texture.jpg', texture_Topo, function(err, texture_Topo) {});
+              buttonD1.addEventListener( 'click', function() {
+                buttonD1.style.backgroundColor = "#1caad9";
+                buttonD2.style.backgroundColor = "#888888";
+                buttonD3.style.backgroundColor = "#888888";
+                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapSat.jpg', texture_Topo, function(err, texture_Topo) {});
               });
 
-              buttonC2.addEventListener( 'click', function() {
-                buttonC1.style.backgroundColor = "#888888";
-                buttonC2.style.backgroundColor = "#1caad9";
-                buttonC3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Riba_de_Santiuste/GoogleSat_texture.jpg', texture_Topo, function(err, texture_Topo) {});
+              buttonD2.addEventListener( 'click', function() {
+                buttonD1.style.backgroundColor = "#888888";
+                buttonD2.style.backgroundColor = "#1caad9";
+                buttonD3.style.backgroundColor = "#888888";
+                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGeo.jpg', texture_Topo, function(err, texture_Topo) {});
               });
 
-              buttonC3.addEventListener( 'click', function() {
-                buttonC1.style.backgroundColor = "#888888";
-                buttonC2.style.backgroundColor = "#888888";
-                buttonC3.style.backgroundColor = "#1caad9";
-                api.updateTexture('https://riccardorocca.github.io/Riba_de_Santiuste/Gray_texture.jpg', texture_Topo, function(err, texture_Topo) {});
+              buttonD3.addEventListener( 'click', function() {
+                buttonD1.style.backgroundColor = "#888888";
+                buttonD2.style.backgroundColor = "#888888";
+                buttonD3.style.backgroundColor = "#1caad9";
+                api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGrey.jpg', texture_Topo, function(err, texture_Topo) {});
               });
             }
 
           }
         });
 
-        buttonF.addEventListener( 'click', function() {
+        buttonG.addEventListener( 'click', function() {
           window.open("https://sites.google.com/site/riccardorocca62/drone-projects/viana-de-jadraque");
         });
 
@@ -277,7 +301,12 @@
     button:hover {opacity: 1;}
     button:active {font-weight: bold;}
     #keyC {background: #888888;}
+    #keyE {background: #888888; margin-top: 10px;}
     #keyD {background: #888888;}
+    #keyD1 {background: #1caad9; width: 31%; display: inline; font-size: x-small;}
+    #keyD2 {background: #888888; width: 32%; display: inline; font-size: x-small;}
+    #keyD3 {background: #888888; width: 31%; display: inline; font-size: x-small;}
+    #keyF {margin-top: 10px;}
 
   </style>
 </body>
