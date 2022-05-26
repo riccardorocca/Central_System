@@ -1,0 +1,340 @@
+ <!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sketchfab Viewer API example</title>
+
+  <!-- Insert this script -->
+  <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.8.2.js"></script>
+</head>
+
+<body>
+  <iframe style="position:fixed; width:100%; height:100%; border:0" src="" id="api-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allow="autoplay; fullscreen; vr" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+  <div class="buttons">
+    <button id="keyA"> Map West </button>
+    <button id="keyB"> Map East </button>
+    <button id="keyC"> Geological Section </button>
+    <button id="keyD">Outcrop Drone</button>
+    <button id="keyE"> Outcrop Satellite </button>
+    <button id="keyF"> Strata </button>
+    <button id="keyG"> Interpretation </button>
+    <button id="keyH">Scalebar</button>
+    <button id="keyI">Background Info</button>
+  </div>
+
+  <!-- Your new script -->
+  <script>
+    var model = '70948b2499d046ef883da133e6b3165c',
+
+    // Buttons
+    buttonA = document.getElementById( 'keyA' ),
+    buttonB = document.getElementById( 'keyB' ),
+    buttonC = document.getElementById( 'keyC' ),
+    buttonD = document.getElementById( 'keyD' ),
+    buttonE = document.getElementById( 'keyE' ),
+    buttonF = document.getElementById( 'keyF' ),
+    buttonG = document.getElementById( 'keyG' ),
+    buttonH = document.getElementById( 'keyH' ),
+    buttonI = document.getElementById( 'keyI' ),
+
+    // Variables
+    version = '1.8.2',
+    iframe = document.getElementById( 'api-frame' ),
+    client = new Sketchfab( version, iframe ),
+
+    error = function () {
+      console.error( 'Sketchfab API Error!' );
+    },
+
+    success = function( api ) {
+      api.start();
+      // Wait for viewer to be ready
+      api.addEventListener( 'viewerready', function() {
+        //api.hideAnnotation(0);
+        //api.hideAnnotation(1);
+
+        // Get the object nodes
+        api.getNodeMap( function ( err, nodes ) {
+          if ( !err ) {
+            for ( var prop in nodes ) {
+              if ( nodes.hasOwnProperty( prop ) ) {
+                //alert(nodes[prop].name);
+                if      ( nodes[ prop ].name === "Cube" )          { var node_Cube = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "TopoDrone" )     { var node_TopoDrone = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "TopoSatellite" ) { var node_TopoSatellite = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonA" )      { var node_HorizonA = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonB" )      { var node_HorizonB = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataA1" )      { var node_StrataA1 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataA2" )      { var node_StrataA2 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "Fault" )         { var node_Fault = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapE = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapW = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoSection" )    { var node_GeoSection = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "Scalebar" )      { var node_Scalebar = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "ScalebarT" )     { var node_ScalebarT = nodes[prop].instanceID; }
+              }
+            }
+
+            api.hide(node_GeoMapW);
+            api.hide(node_GeoMapE);
+            api.hide(node_GeoSection);
+            api.hide(node_TopoSatellite);
+            api.hide(node_HorizonA);
+            api.hide(node_HorizonB);
+            api.hide(node_Fault);
+            api.hide(node_StrataA1);
+            api.hide(node_StrataA2);
+
+            //api.focusOnVisibleGeometries({});
+
+
+            if ( node_GeoMapW ) {
+              // Add button event
+              buttonA.addEventListener( 'click', function() {
+                switch(buttonA.innerHTML) {
+                  case "Map West":
+                    buttonA.innerHTML = " Map West ";
+                    buttonA.style.backgroundColor = "#888888";
+                    api.hide(node_GeoMapW);
+                    break;
+                  case " Map West ":
+                    buttonA.innerHTML = "Map West";
+                    buttonA.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoMapW);
+                    break;
+                }
+              });
+            }
+
+            if ( node_GeoMapE ) {
+              // Add button event
+              buttonB.addEventListener( 'click', function() {
+                switch(buttonB.innerHTML) {
+                  case "Map East":
+                    buttonB.innerHTML = " Map East ";
+                    buttonB.style.backgroundColor = "#888888";
+                    api.hide(node_GeoMapE);
+                    break;
+                  case " Map East ":
+                    buttonB.innerHTML = "Map East";
+                    buttonB.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoMapE);
+                    break;
+                }
+              });
+            }
+
+            if ( node_GeoSection ) {
+              // Add button event
+              buttonC.addEventListener( 'click', function() {
+                switch(buttonC.innerHTML) {
+                  case "Geological Section":
+                    buttonC.innerHTML = " Geological Section ";
+                    buttonC.style.backgroundColor = "#888888";
+                    api.hide(node_GeoSection);
+                    break;
+                  case " Geological Section ":
+                    buttonC.innerHTML = "Geological Section";
+                    buttonC.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoSection);
+                    break;
+                }
+              });
+            }
+
+            if ( node_TopoDrone ) {
+              // Add button event
+              buttonD.addEventListener( 'click', function() {
+                switch(buttonD.innerHTML) {
+                  case "Outcrop Drone":
+                    buttonD.innerHTML = " Outcrop Drone ";
+                    buttonD.style.backgroundColor = "#888888";
+                    api.hide(node_TopoDrone);
+                    break;
+                  case " Outcrop Drone ":
+                    buttonD.innerHTML = "Outcrop Drone";
+                    buttonD.style.backgroundColor = "#1caad9";
+                    api.show(node_TopoDrone);
+                    break;
+                }
+              });
+            }
+
+            if ( node_TopoSatellite ) {
+              // Add button event
+              buttonE.addEventListener( 'click', function() {
+                switch(buttonE.innerHTML) {
+                  case "Outcrop Satellite":
+                    buttonE.innerHTML = " Outcrop Satellite ";
+                    buttonE.style.backgroundColor = "#888888";
+                    api.hide(node_TopoSatellite);
+                    break;
+                  case " Outcrop Satellite ":
+                    buttonE.innerHTML = "Outcrop Satellite";
+                    buttonE.style.backgroundColor = "#1caad9";
+                    api.show(node_TopoSatellite);
+                    break;
+                }
+              });
+            }
+
+            if ( node_StrataA1 && node_StrataA2 ) {
+              // Add button event
+              buttonF.addEventListener( 'click', function() {
+                switch(buttonF.innerHTML) {
+                  case "Strata":
+                    buttonF.innerHTML = " Strata ";
+                    buttonF.style.backgroundColor = "#888888";
+                    api.hide(node_StrataA1);
+                    api.hide(node_StrataA2);
+                    break;
+                  case " Strata ":
+                    buttonF.innerHTML = "Strata";
+                    buttonF.style.backgroundColor = "#1caad9";
+                    api.show(node_StrataA1);
+                    api.show(node_StrataA2);
+                    break;
+                }
+              });
+            }
+
+            if ( node_HorizonA && node_HorizonB && node_Fault ) {
+              // Add button event
+              buttonG.addEventListener( 'click', function() {
+                switch(buttonG.innerHTML) {
+                  case "Interpretation":
+                    buttonG.innerHTML = " Interpretation ";
+                    buttonG.style.backgroundColor = "#888888";
+                    api.hide(node_HorizonA);
+                    api.hide(node_HorizonB);
+                    api.hide(node_Fault);
+                    break;
+                  case " Interpretation ":
+                    buttonG.innerHTML = "Interpretation";
+                    buttonG.style.backgroundColor = "#1caad9";
+                    api.show(node_HorizonA);
+                    api.show(node_HorizonB);
+                    api.show(node_Fault);
+                    break;
+                }
+              });
+            }
+
+          }
+        });
+
+        api.getTextureList(function(err, textures) {
+          if(!err) {
+            for ( var prop in textures ) {
+              if (textures[prop].name === "VianaDeJadraque_OutcropLand.jpg") { var texture_Outcrop = textures[prop].uid; }
+              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Basemap = textures[prop].uid; }
+            }
+
+            if ( texture_Outcrop ) {
+              // Add button event
+              buttonH1.addEventListener( 'click', function() {
+                switch(buttonH1.innerHTML) {
+                  case "Land (B&amp;W)":
+                    buttonH1.innerHTML = "B&W (Land)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    break;
+                  case "B&amp;W (Land)":
+                    buttonH1.innerHTML = "Land (B&W)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    break;
+                }
+              });
+            }
+
+            if ( texture_Basemap ) {
+              // Add button event
+              buttonD1.addEventListener( 'click', function() {
+                switch(buttonD1.innerHTML) {
+                  case "Geo (Sat)":
+                    buttonD1.innerHTML = "Sat (Geo)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapSat.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    break;
+                  case "Sat (Geo)":
+                    buttonD1.innerHTML = "Geo (Sat)";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGeo.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    break;
+                }
+              });
+            }
+
+          }
+        });
+
+        buttonI.addEventListener( 'click', function() {
+          window.open("https://sites.google.com/view/riccardorocca/viana-de-jadraque");
+        });
+
+      });
+    };
+
+    // Load the model
+    client.init( model, {
+      success: success,
+      error: error,
+      ui_infos: 0,
+      ui_controls: 0,
+      ui_stop: 1,
+      watermark: 1,
+      supersample: 0
+    });
+
+  </script>
+
+  <!-- Lastly, some CSS -->
+  <style type="text/css">
+
+    body {
+      margin: 0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Button style */
+    .buttons {
+      width: 160px;
+      margin: 35px 5px;
+      right: 0;
+      top: : 0;
+      z-index: 1;
+      position: absolute;
+    }
+
+    button {
+      width: 100%;
+      height: 25px;
+      line-height: 21px;
+      /*text-transform: capitalize;*/
+      color: white;
+      opacity: 0.8;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      vertical-align: middle;
+      display: block;
+      margin-top: 2px;
+      background: #1caad9;
+    }
+
+    button:hover {opacity: 1;}
+    button:active {font-weight: bold;}
+    #keyA {background: #888888;}
+    #keyB {background: #888888;}
+    #keyC {background: #888888;}
+    #keyE {background: #888888;}
+    #keyF {background: #888888;}
+    #keyG {background: #888888;}
+    #keyH {background: #888888;}
+
+  </style>
+</body>
