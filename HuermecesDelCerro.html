@@ -13,14 +13,16 @@
   <iframe style="position:fixed; width:100%; height:100%; border:0" src="" id="api-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allow="autoplay; fullscreen; vr" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
   <div class="buttons">
-    <button id="keyA"> Map West </button>
-    <button id="keyB"> Map East </button>
-    <button id="keyC"> Geological Section </button>
     <button id="keyD">Outcrop Drone</button>
     <button id="keyE"> Outcrop Satellite </button>
+    <button id="keyH1">Sat</button>
+    <button id="keyH2">Geo</button>
+    <button id="keyH3">B&W</button>
     <button id="keyF"> Strata </button>
     <button id="keyG"> Interpretation </button>
-    <button id="keyH">Satellite</button>
+    <button id="keyA1"> Map West </button>
+    <button id="keyA2"> Map East </button>
+    <button id="keyC"> Geological Section </button>
     <button id="keyI">Scalebar</button>
     <button id="keyJ">Background Info</button>
   </div>
@@ -30,14 +32,16 @@
     var model = '70948b2499d046ef883da133e6b3165c',
 
     // Buttons
-    buttonA = document.getElementById( 'keyA' ),
-    buttonB = document.getElementById( 'keyB' ),
+    buttonA = document.getElementById( 'keyA1' ),
+    buttonB = document.getElementById( 'keyA2' ),
     buttonC = document.getElementById( 'keyC' ),
     buttonD = document.getElementById( 'keyD' ),
     buttonE = document.getElementById( 'keyE' ),
     buttonF = document.getElementById( 'keyF' ),
     buttonG = document.getElementById( 'keyG' ),
-    buttonH = document.getElementById( 'keyH' ),
+    buttonH = document.getElementById( 'keyH1' ),
+    buttonH = document.getElementById( 'keyH2' ),
+    buttonH = document.getElementById( 'keyH3' ),
     buttonI = document.getElementById( 'keyI' ),
 
     // Variables
@@ -234,25 +238,28 @@
             }
 
             if ( texture_OutcropDrone && texture_OutcropSatellite ) {
-              // Add button event
-              buttonH.addEventListener( 'click', function() {
-                switch(buttonH.innerHTML) {
-                  case "Satellite":
-                    buttonH.innerHTML = "Geology";
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
-                    break;
-                  case "Geology":
-                    buttonH.innerHTML = "Grayscale";
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
-                    break;
-                  case "Grayscale":
-                    buttonH.innerHTML = "Satellite";
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
-                    break;
-                }
+              buttonH1.addEventListener( 'click', function() {
+                buttonH1.style.backgroundColor = "#1caad9";
+                buttonH2.style.backgroundColor = "#888888";
+                buttonH3.style.backgroundColor = "#888888";
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+              });
+
+              buttonH2.addEventListener( 'click', function() {
+                buttonH1.style.backgroundColor = "#888888";
+                buttonH2.style.backgroundColor = "#1caad9";
+                buttonH3.style.backgroundColor = "#888888";
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+              });
+
+              buttonH3.addEventListener( 'click', function() {
+                buttonH1.style.backgroundColor = "#888888";
+                buttonH2.style.backgroundColor = "#888888";
+                buttonH3.style.backgroundColor = "#1caad9";
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
               });
             }
 
@@ -320,13 +327,18 @@
 
     button:hover {opacity: 1;}
     button:active {font-weight: bold;}
-    #keyA {background: #888888;}
-    #keyB {background: #888888;}
+    #keyF {}
+
+    #keyA1 {background: #888888; width: 48%; display: inline; margin-top: 10px;}
+    #keyA2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
     #keyC {background: #888888;}
     #keyE {background: #888888;}
-    #keyF {background: #888888;}
+    #keyF {background: #888888; margin-top: 10px;}
     #keyG {background: #888888;}
-    #keyH {background: #888888;}
+    #keyH1 {background: #888888; width: 32%; display: inline;}
+    #keyH2 {background: #888888; width: 31%; display: inline;}
+    #keyH3 {background: #888888; width: 32%; display: inline;}
+    #keyI {margin-top: 10px;}
 
   </style>
 </body>
