@@ -229,28 +229,28 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "HuermecesDelCerro_TopoDrone.jpg") { var texture_OutcropDrone = textures[prop].uid; }
-              if (textures[prop].name === "HuermecesDelCerro_TopoSatellite.jpg") { var texture_OutcropSatellite = textures[prop].uid; }
+              if (textures[prop].name === "HDC_TopoDrone.jpg") { var texture_OutcropDrone = textures[prop].uid; }
+              if (textures[prop].name === "HDC_TopoSatellite.jpg") { var texture_OutcropSatellite = textures[prop].uid; }
             }
 
-            if ( texture_Outcrop ) {
+            if ( texture_OutcropDrone && texture_OutcropSatellite ) {
               // Add button event
               buttonH.addEventListener( 'click', function() {
                 switch(buttonH.innerHTML) {
                   case "Satellite":
                     buttonH.innerHTML = "Geology";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
                   case "Geology":
                     buttonH.innerHTML = "Grayscale";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
                   case "Grayscale":
                     buttonH.innerHTML = "Satellite";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
                 }
               });
