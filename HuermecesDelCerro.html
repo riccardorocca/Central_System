@@ -20,8 +20,9 @@
     <button id="keyE"> Outcrop Satellite </button>
     <button id="keyF"> Strata </button>
     <button id="keyG"> Interpretation </button>
-    <button id="keyH">Scalebar</button>
-    <button id="keyI">Background Info</button>
+    <button id="keyH">Satellite</button>
+    <button id="keyI">Scalebar</button>
+    <button id="keyJ">Background Info</button>
   </div>
 
   <!-- Your new script -->
@@ -228,37 +229,28 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "VianaDeJadraque_OutcropLand.jpg") { var texture_Outcrop = textures[prop].uid; }
-              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Basemap = textures[prop].uid; }
+              if (textures[prop].name === "HuermecesDelCerro_TopoDrone.jpg") { var texture_OutcropDrone = textures[prop].uid; }
+              if (textures[prop].name === "HuermecesDelCerro_TopoSatellite.jpg") { var texture_OutcropSatellite = textures[prop].uid; }
             }
 
             if ( texture_Outcrop ) {
               // Add button event
-              buttonH1.addEventListener( 'click', function() {
-                switch(buttonH1.innerHTML) {
-                  case "Land (B&amp;W)":
-                    buttonH1.innerHTML = "B&W (Land)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+              buttonH.addEventListener( 'click', function() {
+                switch(buttonH.innerHTML) {
+                  case "Satellite":
+                    buttonH.innerHTML = "Geology";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
-                  case "B&amp;W (Land)":
-                    buttonH1.innerHTML = "Land (B&W)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                  case "Geology":
+                    buttonH.innerHTML = "Grayscale";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
-                }
-              });
-            }
-
-            if ( texture_Basemap ) {
-              // Add button event
-              buttonD1.addEventListener( 'click', function() {
-                switch(buttonD1.innerHTML) {
-                  case "Geo (Sat)":
-                    buttonD1.innerHTML = "Sat (Geo)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapSat.jpg', texture_Basemap, function(err, texture_Basemap) {});
-                    break;
-                  case "Sat (Geo)":
-                    buttonD1.innerHTML = "Geo (Sat)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VianaDeJadraque_BasemapGeo.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                  case "Grayscale":
+                    buttonH.innerHTML = "Satellite";
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
+                    api.updateTexture('https://riccardorocca.github.io/Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
                     break;
                 }
               });
@@ -267,7 +259,7 @@
           }
         });
 
-        buttonI.addEventListener( 'click', function() {
+        buttonJ.addEventListener( 'click', function() {
           window.open("https://sites.google.com/view/riccardorocca/viana-de-jadraque");
         });
 
