@@ -15,11 +15,14 @@
   <div class="buttons">
     <button id="keyD">Outcrop Drone</button>
     <button id="keyE"> Outcrop Satellite </button>
-    <button id="keyH1">Sat</button>
+    <button id="keyH1">Topo</button>
     <button id="keyH2">Geo</button>
     <button id="keyH3">B&W</button>
-    <button id="keyF"> Strata </button>
-    <button id="keyG"> Interpretation </button>
+    <button id="keyF2"> Strata T </button>
+    <button id="keyF1"> Strata K </button>
+    <button id="keyG2"> Horizon T </button>
+    <button id="keyG1"> Horizon K </button>
+    <button id="keyG3"> Fault </button>
     <button id="keyA1"> Map West </button>
     <button id="keyA2"> Map East </button>
     <button id="keyC"> Geological Section </button>
@@ -29,7 +32,7 @@
 
   <!-- Your new script -->
   <script>
-    var model = '70948b2499d046ef883da133e6b3165c',
+    var model = '04e0a0c638964a90964b880457645c33',
 
     // Buttons
     buttonA = document.getElementById( 'keyA1' ),
@@ -37,11 +40,14 @@
     buttonC = document.getElementById( 'keyC' ),
     buttonD = document.getElementById( 'keyD' ),
     buttonE = document.getElementById( 'keyE' ),
-    buttonF = document.getElementById( 'keyF' ),
-    buttonG = document.getElementById( 'keyG' ),
-    buttonH = document.getElementById( 'keyH1' ),
-    buttonH = document.getElementById( 'keyH2' ),
-    buttonH = document.getElementById( 'keyH3' ),
+    buttonF1 = document.getElementById( 'keyF1' ),
+    buttonF2 = document.getElementById( 'keyF2' ),
+    buttonG1 = document.getElementById( 'keyG1' ),
+    buttonG2 = document.getElementById( 'keyG2' ),
+    buttonG3 = document.getElementById( 'keyG3' ),
+    buttonH1 = document.getElementById( 'keyH1' ),
+    buttonH2 = document.getElementById( 'keyH2' ),
+    buttonH3 = document.getElementById( 'keyH3' ),
     buttonI = document.getElementById( 'keyI' ),
 
     // Variables
@@ -73,9 +79,10 @@
                 else if ( nodes[ prop ].name === "HorizonB" )      { var node_HorizonB = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "StrataA1" )      { var node_StrataA1 = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "StrataA2" )      { var node_StrataA2 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataB" )       { var node_StrataB = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Fault" )         { var node_Fault = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapE = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapW = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapW = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapE = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "GeoSection" )    { var node_GeoSection = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Scalebar" )      { var node_Scalebar = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "ScalebarT" )     { var node_ScalebarT = nodes[prop].instanceID; }
@@ -91,6 +98,7 @@
             api.hide(node_Fault);
             api.hide(node_StrataA1);
             api.hide(node_StrataA2);
+            api.hide(node_StrataB);
 
             //api.focusOnVisibleGeometries({});
 
@@ -187,19 +195,111 @@
 
             if ( node_StrataA1 && node_StrataA2 ) {
               // Add button event
-              buttonF.addEventListener( 'click', function() {
-                switch(buttonF.innerHTML) {
-                  case "Strata":
-                    buttonF.innerHTML = " Strata ";
-                    buttonF.style.backgroundColor = "#888888";
+              buttonF1.addEventListener( 'click', function() {
+                switch(buttonF1.innerHTML) {
+                  case "Strata K":
+                    buttonF1.innerHTML = " Strata K ";
+                    buttonF1.style.backgroundColor = "#888888";
                     api.hide(node_StrataA1);
                     api.hide(node_StrataA2);
                     break;
-                  case " Strata ":
-                    buttonF.innerHTML = "Strata";
-                    buttonF.style.backgroundColor = "#1caad9";
+                  case " Strata K ":
+                    buttonF1.innerHTML = "Strata K";
+                    buttonF1.style.backgroundColor = "#1caad9";
                     api.show(node_StrataA1);
                     api.show(node_StrataA2);
+                    break;
+                }
+              });
+            }
+
+            if ( node_StrataB ) {
+              // Add button event
+              buttonF2.addEventListener( 'click', function() {
+                switch(buttonF2.innerHTML) {
+                  case "Strata T":
+                    buttonF2.innerHTML = " Strata T ";
+                    buttonF2.style.backgroundColor = "#888888";
+                    api.hide(node_StrataB);
+                    break;
+                  case " Strata T ":
+                    buttonF2.innerHTML = "Strata T";
+                    buttonF2.style.backgroundColor = "#1caad9";
+                    api.show(node_StrataB);
+                    break;
+                }
+              });
+            }
+
+            if ( node_HorizonA ) {
+              // Add button event
+              buttonG1.addEventListener( 'click', function() {
+                switch(buttonG1.innerHTML) {
+                  case "Horizon K":
+                    buttonG1.innerHTML = " Horizon K ";
+                    buttonG1.style.backgroundColor = "#888888";
+                    api.hide(node_HorizonA);
+                    break;
+                  case " Horizon K ":
+                    buttonG1.innerHTML = "Horizon K";
+                    buttonG1.style.backgroundColor = "#1caad9";
+                    api.show(node_HorizonA);
+                    break;
+                }
+              });
+            }
+
+            if ( node_HorizonB ) {
+              // Add button event
+              buttonG2.addEventListener( 'click', function() {
+                switch(buttonG2.innerHTML) {
+                  case "Horizon T":
+                    buttonG2.innerHTML = " Horizon T ";
+                    buttonG2.style.backgroundColor = "#888888";
+                    api.hide(node_HorizonB);
+                    break;
+                  case " Horizon T ":
+                    buttonG2.innerHTML = "Horizon T";
+                    buttonG2.style.backgroundColor = "#1caad9";
+                    api.show(node_HorizonB);
+                    break;
+                }
+              });
+            }
+
+            if ( node_Fault ) {
+              // Add button event
+              buttonG3.addEventListener( 'click', function() {
+                switch(buttonG3.innerHTML) {
+                  case "Fault":
+                    buttonG3.innerHTML = " Fault ";
+                    buttonG3.style.backgroundColor = "#888888";
+                    api.hide(node_Fault);
+                    break;
+                  case " Fault ":
+                    buttonG3.innerHTML = "Fault";
+                    buttonG3.style.backgroundColor = "#1caad9";
+                    api.show(node_Fault);
+                    break;
+                }
+              });
+            }
+
+            if ( node_Scalebar && node_ScalebarT ) {
+              // Add button event
+              buttonI.addEventListener( 'click', function() {
+                switch(buttonI.innerHTML) {
+                  case "Scalebar":
+                    buttonI.innerHTML = " Scalebar ";
+                    buttonI.style.backgroundColor = "#888888";
+                    api.hide(node_Scalebar);
+                    api.hide(node_ScalebarT);
+                    break;
+                  case " Scalebar ":
+                    buttonI.innerHTML = "Scalebar";
+                    buttonI.style.backgroundColor = "#1caad9";
+                    api.show(node_Scalebar);
+                    api.show(node_ScalebarT);
                     break;
                 }
               });
@@ -233,33 +333,33 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "HDC_TopoDrone.jpg") { var texture_OutcropDrone = textures[prop].uid; }
-              if (textures[prop].name === "HDC_TopoSatellite.jpg") { var texture_OutcropSatellite = textures[prop].uid; }
+              if (textures[prop].name === "HDC_TopoDrone.jpg") { var texture_TopoDrone = textures[prop].uid; }
+              if (textures[prop].name === "HDC_TopoSatellite.jpg") { var texture_TopoSatellite = textures[prop].uid; }
             }
 
-            if ( texture_OutcropDrone && texture_OutcropSatellite ) {
+            if ( texture_TopoDrone && texture_TopoSatellite ) {
               buttonH1.addEventListener( 'click', function() {
                 buttonH1.style.backgroundColor = "#1caad9";
                 buttonH2.style.backgroundColor = "#888888";
                 buttonH3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDrone.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatellite.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDrone.jpg', texture_TopoDrone, function(err, texture_TopoDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatellite.jpg', texture_TopoSatellite, function(err, texture_TopoSatellite) {});
               });
 
               buttonH2.addEventListener( 'click', function() {
                 buttonH1.style.backgroundColor = "#888888";
                 buttonH2.style.backgroundColor = "#1caad9";
                 buttonH3.style.backgroundColor = "#888888";
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDroneP.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatelliteP.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoDroneP.jpg', texture_TopoDrone, function(err, texture_TopoDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/HDC_TopoSatelliteP.jpg', texture_TopoSatellite, function(err, texture_TopoSatellite) {});
               });
 
               buttonH3.addEventListener( 'click', function() {
                 buttonH1.style.backgroundColor = "#888888";
                 buttonH2.style.backgroundColor = "#888888";
                 buttonH3.style.backgroundColor = "#1caad9";
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropDrone, function(err, texture_OutcropDrone) {});
-                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_OutcropSatellite, function(err, texture_OutcropSatellite) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_TopoDrone, function(err, texture_TopoDrone) {});
+                api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_TopoSatellite, function(err, texture_TopoSatellite) {});
               });
             }
 
@@ -333,9 +433,12 @@
     #keyA2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
     #keyC {background: #888888;}
     #keyE {background: #888888;}
-    #keyF {background: #888888; margin-top: 10px;}
-    #keyG {background: #888888;}
-    #keyH1 {background: #888888; width: 32%; display: inline;}
+    #keyF1 {background: #888888; width: 48%; display: inline; margin-top: 10px;}
+    #keyF2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
+    #keyG1 {background: #888888; width: 48%; display: inline;}
+    #keyG2 {background: #888888; width: 49%; display: inline;}
+    #keyG3 {background: #888888;}
+    #keyH1 {background: #1caad9; width: 32%; display: inline;}
     #keyH2 {background: #888888; width: 31%; display: inline;}
     #keyH3 {background: #888888; width: 32%; display: inline;}
     #keyI {margin-top: 10px;}
