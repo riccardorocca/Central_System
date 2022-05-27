@@ -233,8 +233,8 @@
         api.getTextureList(function(err, textures) {
           if(!err) {
             for ( var prop in textures ) {
-              if (textures[prop].name === "VianaDeJadraque_OutcropLand.jpg") { var texture_Outcrop = textures[prop].uid; }
-              if (textures[prop].name === "VianaDeJadraque_BasemapSat.jpg") { var texture_Basemap = textures[prop].uid; }
+              if (textures[prop].name === "VDJ_OutcropLand.jpg") { var texture_Outcrop = textures[prop].uid; }
+              if (textures[prop].name === "VDJ_BasemapSat.jpg") { var texture_Basemap = textures[prop].uid; }
             }
 
             if ( texture_Outcrop ) {
@@ -243,11 +243,11 @@
                 switch(buttonH1.innerHTML) {
                   case "Land (B&amp;W)":
                     buttonH1.innerHTML = "B&W (Land)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/OutcropGrey.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
                     break;
                   case "B&amp;W (Land)":
                     buttonH1.innerHTML = "Land (B&W)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VDJ_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/VDJ_OutcropLand.jpg', texture_Outcrop, function(err, texture_Outcrop) {});
                     break;
                 }
               });
@@ -259,11 +259,11 @@
                 switch(buttonD1.innerHTML) {
                   case "Geo (Sat)":
                     buttonD1.innerHTML = "Sat (Geo)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VDJ_BasemapSat.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/VDJ_BasemapSat.jpg', texture_Basemap, function(err, texture_Basemap) {});
                     break;
                   case "Sat (Geo)":
                     buttonD1.innerHTML = "Geo (Sat)";
-                    api.updateTexture('https://riccardorocca.github.io/Central_System/VDJ_BasemapGeo.jpg', texture_Basemap, function(err, texture_Basemap) {});
+                    api.updateTexture('https://riccardorocca.github.io/Spanish_Central_System/VDJ_BasemapGeo.jpg', texture_Basemap, function(err, texture_Basemap) {});
                     break;
                 }
               });
