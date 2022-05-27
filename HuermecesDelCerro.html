@@ -18,11 +18,11 @@
     <button id="keyH1">Topo</button>
     <button id="keyH2">Geo</button>
     <button id="keyH3">B&W</button>
-    <button id="keyF2"> Strata T </button>
-    <button id="keyF1"> Strata K </button>
-    <button id="keyG2"> Horizon T </button>
-    <button id="keyG1"> Horizon K </button>
-    <button id="keyG3"> Fault </button>
+    <button id="keyF2"> Eocene Str </button>
+    <button id="keyF1"> Creta Str </button>
+    <button id="keyG2">Eocene Hr</button>
+    <button id="keyG1">Creta Hr</button>
+    <button id="keyG3">Fault</button>
     <button id="keyA1"> Map West </button>
     <button id="keyA2"> Map East </button>
     <button id="keyC"> Geological Section </button>
@@ -76,11 +76,11 @@
                 if      ( nodes[ prop ].name === "Cube" )          { var node_Cube = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "TopoDrone" )     { var node_TopoDrone = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "TopoSatellite" ) { var node_TopoSatellite = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "HorizonA" )      { var node_HorizonA = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "HorizonB" )      { var node_HorizonB = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataA1" )      { var node_StrataA1 = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataA2" )      { var node_StrataA2 = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataB" )       { var node_StrataB = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonA" )      { var node_HorizonK = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonB" )      { var node_HorizonE = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataA1" )      { var node_StrataK1 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataA2" )      { var node_StrataK2 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataB" )       { var node_StrataE = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Fault" )         { var node_Fault = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapW = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapE = nodes[prop].instanceID; }
@@ -94,9 +94,9 @@
             api.hide(node_GeoMapE);
             api.hide(node_GeoSection);
             api.hide(node_TopoSatellite);
-            api.hide(node_StrataA1);
-            api.hide(node_StrataA2);
-            api.hide(node_StrataB);
+            api.hide(node_StrataK1);
+            api.hide(node_StrataK2);
+            api.hide(node_StrataE);
 
             //api.focusOnVisibleGeometries({});
 
@@ -191,75 +191,75 @@
               });
             }
 
-            if ( node_StrataA1 && node_StrataA2 ) {
+            if ( node_StrataK1 && node_StrataK2 ) {
               // Add button event
               buttonF1.addEventListener( 'click', function() {
                 switch(buttonF1.innerHTML) {
-                  case "Strata K":
-                    buttonF1.innerHTML = " Strata K ";
+                  case "Creta Str":
+                    buttonF1.innerHTML = " Creta Str ";
                     buttonF1.style.backgroundColor = "#888888";
-                    api.hide(node_StrataA1);
-                    api.hide(node_StrataA2);
+                    api.hide(node_StrataK1);
+                    api.hide(node_StrataK2);
                     break;
-                  case " Strata K ":
-                    buttonF1.innerHTML = "Strata K";
+                  case " Creta Str ":
+                    buttonF1.innerHTML = "Creta Str";
                     buttonF1.style.backgroundColor = "#1caad9";
-                    api.show(node_StrataA1);
-                    api.show(node_StrataA2);
+                    api.show(node_StrataK1);
+                    api.show(node_StrataK2);
                     break;
                 }
               });
             }
 
-            if ( node_StrataB ) {
+            if ( node_StrataE ) {
               // Add button event
               buttonF2.addEventListener( 'click', function() {
                 switch(buttonF2.innerHTML) {
-                  case "Strata T":
-                    buttonF2.innerHTML = " Strata T ";
+                  case "Eocene Str":
+                    buttonF2.innerHTML = " Eocene Str ";
                     buttonF2.style.backgroundColor = "#888888";
-                    api.hide(node_StrataB);
+                    api.hide(node_StrataE);
                     break;
-                  case " Strata T ":
-                    buttonF2.innerHTML = "Strata T";
+                  case " Eocene Str ":
+                    buttonF2.innerHTML = "Eocene Str";
                     buttonF2.style.backgroundColor = "#1caad9";
-                    api.show(node_StrataB);
+                    api.show(node_StrataE);
                     break;
                 }
               });
             }
 
-            if ( node_HorizonA ) {
+            if ( node_HorizonK ) {
               // Add button event
               buttonG1.addEventListener( 'click', function() {
                 switch(buttonG1.innerHTML) {
-                  case "Horizon K":
-                    buttonG1.innerHTML = " Horizon K ";
+                  case "Creta Hr":
+                    buttonG1.innerHTML = " Creta Hr ";
                     buttonG1.style.backgroundColor = "#888888";
-                    api.hide(node_HorizonA);
+                    api.hide(node_HorizonK);
                     break;
-                  case " Horizon K ":
-                    buttonG1.innerHTML = "Horizon K";
+                  case " Creta Hr ":
+                    buttonG1.innerHTML = "Creta Hr";
                     buttonG1.style.backgroundColor = "#1caad9";
-                    api.show(node_HorizonA);
+                    api.show(node_HorizonK);
                     break;
                 }
               });
             }
 
-            if ( node_HorizonB ) {
+            if ( node_HorizonE ) {
               // Add button event
               buttonG2.addEventListener( 'click', function() {
                 switch(buttonG2.innerHTML) {
-                  case "Horizon T":
-                    buttonG2.innerHTML = " Horizon T ";
+                  case "Eocene Hr":
+                    buttonG2.innerHTML = " Eocene Hr ";
                     buttonG2.style.backgroundColor = "#888888";
-                    api.hide(node_HorizonB);
+                    api.hide(node_HorizonE);
                     break;
-                  case " Horizon T ":
-                    buttonG2.innerHTML = "Horizon T";
+                  case " Eocene Hr ":
+                    buttonG2.innerHTML = "Eocene Hr";
                     buttonG2.style.backgroundColor = "#1caad9";
-                    api.show(node_HorizonB);
+                    api.show(node_HorizonE);
                     break;
                 }
               });
@@ -431,10 +431,10 @@
     #keyA2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
     #keyC {background: #888888;}
     #keyE {background: #888888;}
-    #keyF1 {background: #888888; width: 48%; display: inline; margin-top: 10px;}
-    #keyF2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
-    #keyG1 {background: #1caad9; width: 48%; display: inline;}
-    #keyG2 {background: #1caad9; width: 49%; display: inline;}
+    #keyF1 {background: #888888; width: 45%; display: inline; margin-top: 10px;}
+    #keyF2 {background: #888888; width: 52%; display: inline; margin-top: 10px;}
+    #keyG1 {background: #1caad9; width: 45%; display: inline;}
+    #keyG2 {background: #1caad9; width: 52%; display: inline;}
     #keyH1 {background: #1caad9; width: 32%; display: inline;}
     #keyH2 {background: #888888; width: 31%; display: inline;}
     #keyH3 {background: #888888; width: 32%; display: inline;}
