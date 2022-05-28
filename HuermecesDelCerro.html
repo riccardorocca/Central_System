@@ -32,7 +32,7 @@
 
   <!-- Your new script -->
   <script>
-    var model = '04e0a0c638964a90964b880457645c33',
+    var model = '8c9279b6a7a84c8fb8c9a2f1f79ec360',
 
     // Buttons
     buttonA = document.getElementById( 'keyA1' ),
@@ -76,11 +76,11 @@
                 if      ( nodes[ prop ].name === "Cube" )          { var node_Cube = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "TopoDrone" )     { var node_TopoDrone = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "TopoSatellite" ) { var node_TopoSatellite = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "HorizonA" )      { var node_HorizonK = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "HorizonB" )      { var node_HorizonE = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataA1" )      { var node_StrataK1 = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataA2" )      { var node_StrataK2 = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "StrataB" )       { var node_StrataE = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonK" )      { var node_HorizonK = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "HorizonT" )      { var node_HorizonT = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataK1" )      { var node_StrataK1 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataK2" )      { var node_StrataK2 = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "StrataT" )       { var node_StrataT = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Fault" )         { var node_Fault = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapW = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapE = nodes[prop].instanceID; }
@@ -96,7 +96,7 @@
             api.hide(node_TopoSatellite);
             api.hide(node_StrataK1);
             api.hide(node_StrataK2);
-            api.hide(node_StrataE);
+            api.hide(node_StrataT);
 
             //api.focusOnVisibleGeometries({});
 
@@ -211,19 +211,19 @@
               });
             }
 
-            if ( node_StrataE ) {
+            if ( node_StrataT ) {
               // Add button event
               buttonF2.addEventListener( 'click', function() {
                 switch(buttonF2.innerHTML) {
                   case "Eocene Str":
                     buttonF2.innerHTML = " Eocene Str ";
                     buttonF2.style.backgroundColor = "#888888";
-                    api.hide(node_StrataE);
+                    api.hide(node_StrataT);
                     break;
                   case " Eocene Str ":
                     buttonF2.innerHTML = "Eocene Str";
                     buttonF2.style.backgroundColor = "#1caad9";
-                    api.show(node_StrataE);
+                    api.show(node_StrataT);
                     break;
                 }
               });
@@ -247,19 +247,19 @@
               });
             }
 
-            if ( node_HorizonE ) {
+            if ( node_HorizonT ) {
               // Add button event
               buttonG2.addEventListener( 'click', function() {
                 switch(buttonG2.innerHTML) {
                   case "Eocene Hr":
                     buttonG2.innerHTML = " Eocene Hr ";
                     buttonG2.style.backgroundColor = "#888888";
-                    api.hide(node_HorizonE);
+                    api.hide(node_HorizonT);
                     break;
                   case " Eocene Hr ":
                     buttonG2.innerHTML = "Eocene Hr";
                     buttonG2.style.backgroundColor = "#1caad9";
-                    api.show(node_HorizonE);
+                    api.show(node_HorizonT);
                     break;
                 }
               });
