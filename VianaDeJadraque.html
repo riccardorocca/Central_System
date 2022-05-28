@@ -20,6 +20,7 @@
     <button id="keyC"> Interpretation </button>
     <button id="keyD"> Map: </button>
     <button id="keyD1">Sat (Geo)</button>
+    <button id="keyD2"> Overlay </button>
     <button id="keyE"> Section </button>
     <button id="keyF">Scalebar</button>
     <button id="keyG">Background Info</button>
@@ -27,7 +28,7 @@
 
   <!-- Your new script -->
   <script>
-    var model = 'c90cc8093370416aa67eb36f8a9b300b',
+    var model = '669b34b35a514418a82f4cece4e05de2',
 
     // Buttons
     buttonH = document.getElementById( 'keyH' ),
@@ -37,6 +38,7 @@
     buttonC = document.getElementById( 'keyC' ),
     buttonD = document.getElementById( 'keyD' ),
     buttonD1 = document.getElementById( 'keyD1' ),
+    buttonD2 = document.getElementById( 'keyD2' ),
     buttonE = document.getElementById( 'keyE' ),
     buttonF = document.getElementById( 'keyF' ),
     buttonG = document.getElementById( 'keyG' ),
@@ -72,6 +74,7 @@
                 else if ( nodes[ prop ].name === "Horizon2a" )  { var node_Horizon2a = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Horizon2b" )  { var node_Horizon2b = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Basemap" )    { var node_Basemap = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "Overlay" )    { var node_Overlay = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Section" )    { var node_Section = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Scalebar" )   { var node_Scalebar = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "ScalebarT" )  { var node_ScalebarT = nodes[prop].instanceID; }
@@ -84,6 +87,7 @@
             api.hide(node_Horizon2a);
             api.hide(node_Horizon2b);
             api.hide(node_Basemap);
+            api.hide(node_Overlay);
             api.hide(node_Section);
 
 
@@ -184,6 +188,24 @@
                     buttonD.style.backgroundColor = "#1caad9";
                     buttonD1.style.backgroundColor = "#1caad9";
                     api.show(node_Basemap);
+                    break;
+                }
+              });
+            }
+
+            if ( node_Overlay ) {
+              // Add button event
+              buttonD2.addEventListener( 'click', function() {
+                switch(buttonD2.innerHTML) {
+                  case "Overlay":
+                    buttonD2.innerHTML = " Overlay ";
+                    buttonD2.style.backgroundColor = "#888888";
+                    api.hide(node_Overlay);
+                    break;
+                  case " Overlay ":
+                    buttonD2.innerHTML = "Overlay";
+                    buttonD2.style.backgroundColor = "#1caad9";
+                    api.show(node_Overlay);
                     break;
                 }
               });
@@ -338,6 +360,7 @@
     #keyC {background: #888888;}
     #keyD {background: #888888; margin-top: 10px; width: 40%; display: inline;}
     #keyD1 {background: #888888; margin-top: 10px; width: 57%; display: inline;}
+    #keyD2 {background: #888888;}
     #keyE {background: #888888;}
     #keyF {margin-top: 10px;}
 
