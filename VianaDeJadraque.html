@@ -22,13 +22,16 @@
     <button id="keyD1">Sat (Geo)</button>
     <button id="keyD2"> Overlay </button>
     <button id="keyE"> Section </button>
+    <button id="keyM1"> Map West </button>
+    <button id="keyM2"> Map East </button>
+    <button id="keyM"> Geological Section </button>
     <button id="keyF">Scalebar</button>
     <button id="keyG">Background Info</button>
   </div>
 
   <!-- Your new script -->
   <script>
-    var model = '669b34b35a514418a82f4cece4e05de2',
+    var model = 'fe5068c190194582903ae360c4aa2eff',
 
     // Buttons
     buttonH = document.getElementById( 'keyH' ),
@@ -42,6 +45,9 @@
     buttonE = document.getElementById( 'keyE' ),
     buttonF = document.getElementById( 'keyF' ),
     buttonG = document.getElementById( 'keyG' ),
+    buttonM = document.getElementById( 'keyM' ),
+    buttonM1 = document.getElementById( 'keyM1' ),
+    buttonM2 = document.getElementById( 'keyM2' ),
 
     // Variables
     version = '1.8.2',
@@ -65,8 +71,7 @@
             for ( var prop in nodes ) {
               if ( nodes.hasOwnProperty( prop ) ) {
                 //alert(nodes[prop].name);
-                if      ( nodes[ prop ].name === "Volume" )     { var node_Volume = nodes[prop].instanceID; }
-                else if ( nodes[ prop ].name === "Outcrop" )    { var node_Outcrop = nodes[prop].instanceID; }
+                if      ( nodes[ prop ].name === "Outcrop" )    { var node_Outcrop = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Stratum" )    { var node_Stratum = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Fault" )      { var node_Fault = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Anticline" )  { var node_Anticline = nodes[prop].instanceID; }
@@ -76,12 +81,17 @@
                 else if ( nodes[ prop ].name === "Basemap" )    { var node_Basemap = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Overlay" )    { var node_Overlay = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Section" )    { var node_Section = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapW" )       { var node_GeoMapW = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoMapE" )       { var node_GeoMapE = nodes[prop].instanceID; }
+                else if ( nodes[ prop ].name === "GeoSection" )    { var node_GeoSection = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "Scalebar" )   { var node_Scalebar = nodes[prop].instanceID; }
                 else if ( nodes[ prop ].name === "ScalebarT" )  { var node_ScalebarT = nodes[prop].instanceID; }
               }
             }
 
-            api.hide(node_Volume);
+            api.hide(node_GeoMapW);
+            api.hide(node_GeoMapE);
+            api.hide(node_GeoSection);
             api.hide(node_Fault);
             api.hide(node_Horizon1);
             api.hide(node_Horizon2a);
@@ -90,6 +100,59 @@
             api.hide(node_Overlay);
             api.hide(node_Section);
 
+            if ( node_GeoMapW ) {
+              // Add button event
+              buttonM1.addEventListener( 'click', function() {
+                switch(buttonM1.innerHTML) {
+                  case "Map West":
+                    buttonM1.innerHTML = " Map West ";
+                    buttonM1.style.backgroundColor = "#888888";
+                    api.hide(node_GeoMapW);
+                    break;
+                  case " Map West ":
+                    buttonM1.innerHTML = "Map West";
+                    buttonM1.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoMapW);
+                    break;
+                }
+              });
+            }
+
+            if ( node_GeoMapE ) {
+              // Add button event
+              buttonM2.addEventListener( 'click', function() {
+                switch(buttonM2.innerHTML) {
+                  case "Map East":
+                    buttonM2.innerHTML = " Map East ";
+                    buttonM2.style.backgroundColor = "#888888";
+                    api.hide(node_GeoMapE);
+                    break;
+                  case " Map East ":
+                    buttonM2.innerHTML = "Map East";
+                    buttonM2.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoMapE);
+                    break;
+                }
+              });
+            }
+
+            if ( node_GeoSection ) {
+              // Add button event
+              buttonM.addEventListener( 'click', function() {
+                switch(buttonM.innerHTML) {
+                  case "Geological Section":
+                    buttonM.innerHTML = " Geological Section ";
+                    buttonM.style.backgroundColor = "#888888";
+                    api.hide(node_GeoSection);
+                    break;
+                  case " Geological Section ":
+                    buttonM.innerHTML = "Geological Section";
+                    buttonM.style.backgroundColor = "#1caad9";
+                    api.show(node_GeoSection);
+                    break;
+                }
+              });
+            }
 
             if ( node_Outcrop ) {
               // Add button event
@@ -363,6 +426,9 @@
     #keyD2 {background: #888888;}
     #keyE {background: #888888;}
     #keyF {margin-top: 10px;}
+    #keyM1 {background: #888888; width: 48%; display: inline; margin-top: 10px;}
+    #keyM2 {background: #888888; width: 49%; display: inline; margin-top: 10px;}
+    #keyM {background: #888888;}
 
   </style>
 </body>
